@@ -1,9 +1,9 @@
 package net.vksagar.shoppingbackend.daoimpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,54 +12,25 @@ import net.vksagar.shoppingbackend.dao.CategoryDAO;
 import net.vksagar.shoppingbackend.dto.Category;
 
 @Repository("categoryDAO")
+@Transactional
 public class CategoryDAOImpl implements CategoryDAO{
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	private static List<Category> categoryList = new ArrayList<>();
-	
-	static {
-		Category category = new Category();
-		category.setId(1);
-		category.setName("Television");
-		category.setDescription("This is description for TV");
-		category.setImageURL("CAT_1.png");
-		
-		categoryList.add(category);
-		
-		
-		category = new Category();
-		category.setId(2);
-		category.setName("Mobile");
-		category.setDescription("This is description for Mobile");
-		category.setImageURL("CAT_2.png");
-		
-		categoryList.add(category);
-		
-		category = new Category();
-		category.setId(3);
-		category.setName("Laptop");
-		category.setDescription("This is description for Laptop");
-		category.setImageURL("CAT_3.png");
-		
-		categoryList.add(category);
-	}
-	
 	@Override
 	public List<Category> list() {
-		// TODO Auto-generated method stub
+		String selectActiveCategory = "FROM Category where active =:active";
+		Query query = sessionFactory.getCurrentSession().createQuery(selectActiveCategory);
+		query.setParameter("active", true);
 		
-		return categoryList;
+		return query.getResultList();
 	}
 
 	@Override
 	public Category get(int id) {
-		for(Category category : categoryList) {
-			if(category.getId() == id)
-				return category;
-		}
-		return null;
+		
+		return sessionFactory.getCurrentSession().get(Category.class, Integer.valueOf(id));
 	}
 
 	@Override
@@ -68,6 +39,31 @@ public class CategoryDAOImpl implements CategoryDAO{
 		try {
 			//add category
 			sessionFactory.getCurrentSession().persist(category);
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean update(Category category) {
+		try {
+			//update category
+			sessionFactory.getCurrentSession().update(category);
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean delete(Category category) {
+		category.setActive(false);
+		try {
+			//delete category
+			sessionFactory.getCurrentSession().update(category);
 			return true;
 		} catch (Exception ex) {
 			ex.printStackTrace();
