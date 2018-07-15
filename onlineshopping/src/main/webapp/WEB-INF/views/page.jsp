@@ -24,6 +24,7 @@
 
 <script type="text/javascript">
 	window.menu = '${title}';
+	window.contextRoot = '${contextRoot}';
 </script>
 
 <!-- Bootstrap core CSS -->
@@ -31,6 +32,9 @@
 
 <!-- Bootstrap Darkly Theme CSS-->
 <link href="${css}/bootstrap-darkly-theme" rel="stylesheet">
+
+<!-- Bootstrap Data Table CSS-->
+<%-- <link href="${css}/dataTables.bootstrap" rel="stylesheet"> --%>
 
 <!-- Custom styles for this template -->
 <link href="${css}/shop-homepage.css" rel="stylesheet">
@@ -64,6 +68,11 @@
 			<c:if test="${userClickAllProducts == true or userClickCategoryProducts == true}">
 				<%@include file="listProducts.jsp"%>
 			</c:if>
+			
+			<!-- Load only when User clicks on Single Product -->
+			<c:if test="${userClickShowProduct == true}">
+				<%@include file="singleProduct.jsp"%>
+			</c:if>
 		</div>
 
 		<!-- Footer -->
@@ -74,6 +83,9 @@
 	<!-- Bootstrap core JavaScript -->
 	<script src="${js}/jquery.min.js"></script>
 	<script src="${js}/bootstrap.bundle.min.js"></script>
+	<!-- Data table plugins  -->
+	<script src="${js}/jquery.dataTables.js"></script>
+	<%-- <script src="${js}/dataTables.bootstrap.js"></script> --%>
 
 	<!-- Self coded java script -->
 	<script src="${js}/myapp.js"></script>
