@@ -23,7 +23,8 @@
 						<label class="control-label col-md-4" for="name">Enter Product Name</label>
 						<div class="col-md-8">
 							<sf:input type="text" path="name" id="name" placeholder="Product Name" class="form-control"/>
-							<em class="help-block">Please Enter Product Name!</em>
+							<sf:errors path="name" cssClass="help-block" element="em"></sf:errors>
+							<!-- <em class="help-block">Please Enter Product Name!</em> -->
 						</div>
 					</div>
 					
@@ -31,7 +32,8 @@
 						<label class="control-label col-md-4" for="brand">Enter Brand Name</label>
 						<div class="col-md-8">
 							<sf:input type="text" path="brand" id="brand" placeholder="Brand Name" class="form-control"/>
-							<em class="help-block">Please Enter Brand Name!</em>
+							<sf:errors path="brand" cssClass="help-block" element="em"></sf:errors>
+							<!-- <em class="help-block">Please Enter Brand Name!</em> -->
 						</div>
 					</div>
 					
@@ -39,7 +41,8 @@
 						<label class="control-label col-md-4" for="description">Enter Description</label>
 						<div class="col-md-8">
 							<sf:textarea type="text" path="description" id="description" placeholder="Description" class="form-control"/>
-							<em class="help-block">Please Enter Description!</em>
+							<sf:errors path="description" cssClass="help-block" element="em"></sf:errors>
+							<!-- <em class="help-block">Please Enter Description!</em> -->
 						</div>
 					</div>
 					
@@ -47,7 +50,8 @@
 						<label class="control-label col-md-4" for="unitPrice">Enter Unit Price</label>
 						<div class="col-md-8">
 							<sf:input type="number" path="unitPrice" id="unitPrice" placeholder="Unit Price In &#8377" class="form-control"/>
-							<em class="help-block">Please Enter Unit Price!</em>
+							<sf:errors path="unitPrice" cssClass="help-block" element="em"></sf:errors>
+							<!-- <em class="help-block">Please Enter Unit Price!</em> -->
 						</div>
 					</div>
 					
@@ -55,7 +59,7 @@
 						<label class="control-label col-md-4" for="quantity">Enter Quantity Available</label>
 						<div class="col-md-8">
 							<sf:input type="number" path="quantity" id="quantity" placeholder="Quantity Available" class="form-control"/>
-							<em class="help-block">Please Enter Quantity Available!</em>
+							<!-- <em class="help-block">Please Enter Quantity Available!</em> -->
 						</div>
 					</div>
 					

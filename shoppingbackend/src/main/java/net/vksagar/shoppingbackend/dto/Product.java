@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Product {
@@ -15,9 +18,14 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String code;
+	@SuppressWarnings("deprecation")
+	@NotBlank(message="Please enter product name")
 	private String name;
+	@NotBlank(message="Please enter brand name")
 	private String brand;
+	@NotBlank(message = "Please enter description of product")
 	private String description;
+	@Min(value=1, message="The price can not be less than 1")
 	@Column(name="unit_price")
 	private double unitPrice;
 	private int quantity;
