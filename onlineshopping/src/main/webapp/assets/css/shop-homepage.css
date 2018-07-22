@@ -37,4 +37,8 @@ Custom styling
 	position: absolute;
 	bottom: 15px;
 	height: 60px;
-}	
+}
+
+.help-block {
+	color : #ff0000;
+}
