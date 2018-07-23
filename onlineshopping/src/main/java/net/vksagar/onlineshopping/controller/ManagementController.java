@@ -2,8 +2,11 @@ package net.vksagar.onlineshopping.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.vksagar.onlineshopping.util.FileUploadUtility;
 import net.vksagar.shoppingbackend.dao.CategoryDAO;
 import net.vksagar.shoppingbackend.dao.ProductDAO;
 import net.vksagar.shoppingbackend.dto.Category;
@@ -61,7 +65,8 @@ public class ManagementController {
 	//handle Product submission to DB
 	@RequestMapping(value="/products", method=RequestMethod.POST)
 	public String handleProductSubmission(@ModelAttribute("product") @Valid Product mProduct,
-			BindingResult results, Model model) {
+			BindingResult results, Model model,
+			HttpServletRequest request) {
 		
 		//check if there are any errors
 		if(results.hasErrors()) {
@@ -74,6 +79,10 @@ public class ManagementController {
 		logger.info(mProduct.toString());
 		
 		productDAO.add(mProduct);
+		
+		if(!mProduct.getFile().getOriginalFilename().equals("")) {
+			FileUploadUtility.uploadFile(request, mProduct.getFile(), mProduct.getCode());
+		}
 		
 		return "redirect:/manage/products?operation=product";
 	}
