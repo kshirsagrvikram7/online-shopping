@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import net.vksagar.onlineshopping.util.FileUploadUtility;
+import net.vksagar.onlineshopping.validator.ProductValidator;
 import net.vksagar.shoppingbackend.dao.CategoryDAO;
 import net.vksagar.shoppingbackend.dao.ProductDAO;
 import net.vksagar.shoppingbackend.dto.Category;
@@ -67,6 +68,9 @@ public class ManagementController {
 	public String handleProductSubmission(@ModelAttribute("product") @Valid Product mProduct,
 			BindingResult results, Model model,
 			HttpServletRequest request) {
+		
+		//custom validation for file upload
+		new ProductValidator().validate(mProduct, results);
 		
 		//check if there are any errors
 		if(results.hasErrors()) {
